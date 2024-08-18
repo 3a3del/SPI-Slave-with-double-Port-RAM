@@ -42,22 +42,19 @@ module tb_spi_ram_wrapper;
         .spi_bits_sent(spi_bits_sent),  // Corrected signal name
         .spi_cs(spi_cs)
     );
-
+integer i; parameter MEM_FILE = "mem.dat";
     // Initialize RAM memory (if necessary)
-    initial begin
+     initial begin
         // Example for direct RAM initialization if needed
         // Assuming you have access to `ram_inst.mem` for initialization
         // Replace this with correct initialization if `ram_inst` is not directly accessible
-        integer i;
-        for (i = 0; i < MEM_DEPTH; i = i + 1) begin
-            uut.ram_inst.mem[i] = 0;  // Example initialization
-        end
-        // Uncomment if using memory file
-        // parameter MEM_FILE = "C:\\Users\\hp\\Desktop\\project\\mem.dat";
-        // if (MEM_FILE != 0) begin
-        //     $readmemh(MEM_FILE, uut.ram_inst.mem);
-        // end
-    end
+         for (i = 0; i < MEM_DEPTH; i = i + 1) begin
+             uut.ram_inst.mem[i] = 0;  // Example initialization
+         end
+         if (MEM_FILE != 0) begin
+             $readmemh(MEM_FILE, uut.ram_inst.mem);
+         end
+     end
 
     // Clock generation
     initial begin
